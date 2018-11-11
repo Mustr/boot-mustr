@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.mustr.common.dao.RolePermissionsDao">
+
+  <select id="getPermissionsByRoleId" resultType="string">
+    select permissions from TRole_Permissions where role_id = #{roleId}
+  </select>
+  
+  <insert id="saveRolePermissions" keyColumn="id" useGeneratedKeys="true">
+    insert into TRole_Permissions
+    (`role_id`,`permissions`)
+    values
+    (#{arg0},#{arg1})
+  </insert>
+  
+  <delete id="deleteRolePermissions">
+    delete from TRole_Permissions where role_id = #{arg0} and permissions = #{arg1}
+  </delete>
+  
+  <delete id="deleteRoleAllPermissions">
+    delete from TRole_Permissions where role_id = #{roleId} 
+  </delete>
+  
+  <insert id="batchSaveRolePermissions">
+    insert into TRole_Permissions
+    (`role_id`,`permissions`)
+    values
+    <foreach collection="permissionses" item="permissions" index="index" separator=",">
+      (#{roleId},#{permissions})
+    </foreach>
+  </insert>
+</mapper>

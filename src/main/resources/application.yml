@@ -1,0 +1,25 @@
+server:
+  port: 80
+    
+spring:
+  thymeleaf:
+    encoding: utf-8
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    
+  devtools:
+    restart:
+      enabled: true
+      
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: mybatis/**/*Mapper.xml
+  typeAliasesPackage: com.bootdo.**.entity
+  
+pagehelper:
+  helper-dialect: mysql
+  

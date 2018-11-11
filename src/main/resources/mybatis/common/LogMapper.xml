@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.mustr.common.dao.LogDao">
+  
+  <insert id="saveLog" parameterType="com.mustr.common.entity.LogBean" keyProperty="id" useGeneratedKeys="true"> 
+    insert into TLog
+    (`user_id`,`username`,`operation`,`time`,`method`,`params`,`ip`,`createTime`)
+    values
+    (#{userId},#{username},#{operation},#{time},#{method},#{params},#{ip},#{createTime})
+  </insert>
+  
+  <select id="getLogById" resultType="com.mustr.common.entity.LogBean">
+    select `id`,`user_id`,`username`,`operation`,`time`,`method`,`params`,`ip`,`createTime` from TLog where id = #{id}
+  </select>
+  
+  <select id="getLogsByUserId" resultType="com.mustr.common.entity.LogBean">
+    select `id`,`user_id`,`username`,`operation`,`time`,`method`,`params`,`ip`,`createTime` from TLog where user_id = #{userId}
+    order by createTime desc
+  </select>
+  
+  <delete id="batchDelete">
+    delete from TLog where id in 
+     <foreach collection="ids" item="id" open="(" close=")" separator=",">
+      #{id}
+     </foreach>
+  </delete>
+</mapper>

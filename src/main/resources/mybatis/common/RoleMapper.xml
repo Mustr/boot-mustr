@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.mustr.common.dao.RoleDao">
+  
+  <insert id="saveRole" parameterType="com.mustr.common.entity.RoleBean" keyProperty="id" useGeneratedKeys="true"> 
+    insert into TRole
+    (`name`,`sign`,`remark`,`creator`,`createTime`,`lastModifiedTime`)
+    values
+    (#{name},#{sign},#{remark},#{creator},#{createTime},#{lastModifiedTime})
+  </insert>
+  
+  <update id="updateRole" parameterType="com.mustr.common.entity.RoleBean">
+     update TRole
+       <set>
+         <if test="name != null">`name` = #{name},</if>
+         <if test="sign != null">`sign` = #{sign},</if>
+         <if test="remark != null">`remark` = #{remark},</if>
+         <if test="creator != null">`creator` = #{creator},</if>
+         <if test="createTime != null">`createTime` = #{createTime},</if>
+       </set>
+     where id = #{id}
+  </update>
+
+  <delete id="deleteRole">
+   delete from TRole where id = #{id}
+  </delete>
+  
+  <select id="getRoleById" resultType="com.mustr.common.entity.RoleBean">
+    select `id`,`name`,`sign`,`remark`,`creator`,`createTime`,`lastModifiedTime` from TRole where id = #{id}
+  </select>
+  
+  <select id="getRolesByUser" resultType="com.mustr.common.entity.RoleBean">
+    select r.id,r.name,r.sign,r.remark,r.creator,r.createTime,r.lastModifiedTime
+    from TRole r, TUser_Role ur
+    where r.id = ur.role_id and ur.user_id = #{userId}
+  </select>
+  
+  <select id="getRoles" resultType="com.mustr.common.entity.RoleBean">
+    select id,name,sign,remark,creator,createTime,lastModifiedTime
+    from TRole
+    <where>
+      <if test="name != null"> and name = #{name}</if>
+    </where>
+  </select>
+</mapper>

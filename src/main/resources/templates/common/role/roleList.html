@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="include :: header"></head>
+<body>
+<div class="inner-content">
+  <div class="row">
+    <div class="col-md-12">
+            <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-8"></div>
+                <div class="col-sm-4 right">
+                  <button type="button" id="addBtn" class="btn btn-turquoise btn-single"><i class="fa-plus"></i><span>添加角色</span></button>
+                </div>
+            </div>
+            
+            <table id="roleTable" lay-filter="filter"></table>
+            </div>
+    </div>
+  </div>
+  
+</div>
+<script type="text/html" id="optBtns">
+  <a class="btn btn-secondary btn-sm" lay-event="edit" title="编辑"><i class="fa-edit"></i></a>
+  <a class="btn btn-danger btn-sm" lay-event="del" title="删除"><i class="fa-remove"></i></a>
+</script>
+
+<script type="text/javascript" th:src="@{/js/appjs/common/role/roleList.js}"></script>
+</body>
+
+</html>

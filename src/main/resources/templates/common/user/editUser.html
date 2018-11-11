@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="include :: header"></head>
+<body>
+<div class="inner-content">
+  <form role="form" id="userForm" class="validate form-wizard">
+    <input type="hidden" name="id" th:value="${user.id}"/>
+    <input type="hidden" name="_method" value="PUT"/>
+    <div class="row">
+      <div class="col-md-6">
+           <div class="form-group">
+               <label class="control-label" for="username">用户名</label>
+               <input class="form-control" type="text" disabled name="username" id="username" th:value="${user.username}"/>
+           </div>
+       </div>
+       
+       <div class="col-md-6">
+           <div class="form-group">
+               <label class="control-label" for="name">姓名</label>
+               <input class="form-control" type="text" th:value="${user.name}" name="name" id="name" data-validate="required"  placeholder="姓名" autocomplete="off" />
+           </div>
+       </div>
+    </div>
+    
+    <div class="row"> 
+      <div class="col-md-6">
+           <div class="form-group">
+               <label class="control-label" for="deptId">所属部门</label>
+               <select class="form-control" id="deptId" name="deptId">
+                   <option value="">选择部门</option>
+                   <option th:each="dept:${depts}" th:selected="${user.deptId} == ${dept.id}" th:value="${dept.id}">[[${dept.name}]]</option>
+               </select>
+           </div>
+      </div>
+      <div class="col-md-6">
+           <div class="form-group">
+               <label class="control-label" for="sex">性别</label>
+               <div class="form-control" >
+                   <label class="radio-inline">
+                       <input type="radio" class="cbr cbr-success" value="1" th:checked="${user.sex}" name="sex">男
+                   </label>
+                   <label class="radio-inline">
+                       <input type="radio" class="cbr cbr-purple" value="0" th:checked="${!user.sex}" name="sex">女
+                   </label>
+               </div>
+           </div>
+       </div>
+     </div>
+     
+     <div class="row">
+      <div class="col-md-6">
+           <div class="form-group">
+               <label class="control-label" for="mobile">手机</label>
+               <input class="form-control" name="mobile" data-mask="999-9999-9999" id="mobile" placeholder="手机号码" th:value="${user.mobile}" />
+           </div>
+       </div>
+       
+       <div class="col-md-6">
+           <div class="form-group">
+               <label class="control-label" for="email">邮箱</label>
+               <input class="form-control email" name="email" id="email" placeholder="邮箱" th:value="${user.email}"/>
+           </div>
+       </div>
+     </div>
+     
+     <div class="row">
+      <div class="col-md-6">
+           <div class="form-group">
+               <label class="control-label" for="birth">出生日期</label>
+               <input class="form-control datepicker" data-format="yyyy-mm-dd" th:value="${#calendars.format(user.birth,'yyyy-MM-dd')}" name="birth" id="birth" placeholder="出生日期" autocomplete="off"/>
+           </div>
+       </div>
+       
+       <div class="col-md-6">
+           <div class="form-group">
+               <label class="control-label" for="address">现居住地</label>
+               <input class="form-control" name="address" id="address" th:value="${user.address}" placeholder="现居住地" />
+           </div>
+       </div>
+     </div>
+     <div class="row">
+       <div class="center">
+           <button type="submit" class="btn btn-turquoise">保存</button>
+           <button type="button" onclick="layer_close()" class="btn btn-white">关闭</button>
+       </div>
+     </div>
+  </form>
+</div>
+<script type="text/javascript" th:src="@{/js/appjs/common/user/editUser.js}"></script>
+</body>
+
+</html>

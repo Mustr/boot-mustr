@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="include :: header"></head>
+<body>
+	<div class="inner-content">
+	  <section class="profile-env">
+	   <div class="row">
+	     <div class="col-sm-12">
+	           <div class="user-info-sidebar">
+	               
+	               <a href="javascript:void(0)" class="user-img">
+	                   <img src="assets/images/user-4.png" th:src="@{/images/touxian.jpg}" alt="user-img" width="80" height="80" class="img-cirlce img-responsive img-thumbnail" />
+	               </a>
+	               
+	               <a href="#" class="user-name" th:text="${user.name}"></a>
+	               
+	               <span class="user-title" th:text="${user.deptName}"></span>
+	               
+	               <hr />
+	               <div class="col-sm-6">
+		             <ul class="list-unstyled user-info-list">
+		               <li title="用户名">
+		                   <i class="fa-home"></i>123
+		                   
+		               </li>
+		               <li title="邮箱">
+		                   <i class="fa-envelope-square"></i>
+		                   <th:block th:if="${user.email != null}">[[${user.email}]]</th:block>
+                           <th:block th:if="${user.email == null}">无</th:block>
+		                   
+		               </li>
+		               <li title="出生年月">
+                           <i class="fa-birthday-cake"></i>
+                           [[${#calendars.format(user.birth,'yyyy-MM-dd')}]]
+                       </li>
+		               
+		             </ul> 
+		           </div>
+		           <div class="col-sm-6">
+                     <ul class="list-unstyled user-info-list">
+                       <li title="联系方式">
+                           <i class="fa-phone"></i>
+                           <th:block th:if="${user.mobile != null}">[[${user.mobile}]]</th:block>
+                           <th:block th:if="${user.mobile == null}">无</th:block>
+                       </li>
+                       <li title="性别">
+                           <i class="fa-female"></i>
+                           <th:block th:text="${user.sex} ? '男' : '女'"></th:block>
+                       </li>
+                       <li title="居住地址">
+                           <i class="fa-paper-plane"></i>
+                           [[${user.address}]]
+                       </li>
+                     </ul> 
+                   </div>  
+	               
+	           </div>
+	           
+	       </div>
+	   
+	   </div>
+	 </section>
+	</div>
+</body>
+</html>

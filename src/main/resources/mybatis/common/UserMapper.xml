@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.mustr.common.dao.UserDao">
+   
+  <insert id="saveUser" parameterType="com.mustr.common.entity.UserBean" keyProperty="id" useGeneratedKeys="true">
+   insert into TUser 
+     (`username`,`password`,`name`,`sex`,`dept_id`,`status`,`email`,`mobile`,`birth`,`address`,`creator`,`createTime`,`lastModifiedTime`)
+     values
+     (#{username},#{password},#{name},#{sex},#{deptId},#{status},#{email},#{mobile},#{birth},#{address},#{creator},#{createTime},#{lastModifiedTime})
+  </insert>
+  
+  <delete id="deleteUser">
+    delete from TUser where id = #{id}
+  </delete>
+
+  <update id="updateUser" parameterType="com.mustr.common.entity.UserBean">
+    update TUser
+    <set>
+      <if test="password != null">`password` = #{password},</if>
+      <if test="name != null">`name` = #{name},</if>
+      <if test="password != null">`password` = #{password},</if>
+      <if test="sex != null">`sex` = #{sex},</if>
+      <if test="deptId != null">`dept_id` = #{deptId},</if>
+      <if test="status != null">`status` = #{status},</if>
+      <if test="email != null">`email` = #{email},</if>
+      <if test="mobile != null">`mobile` = #{mobile},</if>
+      <if test="birth != null">`birth` = #{birth},</if>
+      <if test="address != null">`address` = #{address},</if>
+      <if test="creator != null">`creator` = #{creator},</if>
+      <if test="createTime != null">`createTime` = #{createTime},</if>
+      <if test="lastModifiedTime != null">`lastModifiedTime` = #{lastModifiedTime}</if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <select id="getUserById" resultType="com.mustr.common.entity.UserBean">
+   select `id`,`username`,`password`,`name`,`sex`,`dept_id`,`status`,`email`,`mobile`,`birth`,`address`,`creator`,`createTime`,`lastModifiedTime` from TUser where id = #{id}
+  </select>
+
+  <select id="getUserByUsername" resultType="com.mustr.common.entity.UserBean">
+   select `id`,`username`,`password`,`name`,`sex`,`dept_id`,`status`,`email`,`mobile`,`birth`,`address`,`creator`,`createTime`,`lastModifiedTime` from TUser where username = #{username}
+  </select>
+
+  <select id="getUsers" resultType="com.mustr.common.entity.UserBean">
+    select u.id,u.username,u.password,u.name,u.sex,u.dept_id,u.status,u.email,u.mobile,u.birth,u.address,u.creator,u.createTime,u.lastModifiedTime,t.name as deptName from TUser u
+    left join TDept t on t.id = u.dept_id
+    <where>
+        <if test="deptId != null and deptId != ''"> and u.dept_id = #{deptId}</if>
+        <if test="status != null and status != ''"> and u.status = #{status}</if>
+        <if test="username != null and username != ''"> and u.username = #{username}</if>
+    </where>
+    <choose>
+        <when test="sort != null and sort.trim() != ''">
+            order by ${sort} ${order}
+        </when>
+        <otherwise>
+            order by id asc
+        </otherwise>
+    </choose>
+  </select>
+</mapper>
