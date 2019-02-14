@@ -33,5 +33,7 @@ spring:
     # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     schema: classpath:doc/bootMustr.sql
+    
+    #是否新建表
     #initialization-mode: always
  
