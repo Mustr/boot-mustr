@@ -18,8 +18,14 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: mybatis/**/*Mapper.xml
-  typeAliasesPackage: com.bootdo.**.entity
+  typeAliasesPackage: com.mustr.**.entity
   
 pagehelper:
   helper-dialect: mysql
+ 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ['httptrace', 'metrics']
   
