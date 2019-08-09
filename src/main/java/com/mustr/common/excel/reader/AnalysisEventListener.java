@@ -2,8 +2,7 @@ package com.mustr.common.excel.reader;
 
 /**
  * 读取数据监听处理类
- * @author chenxj
- * @date 2018年10月11日
+ * @author mustr
  */
 public interface AnalysisEventListener {
 
