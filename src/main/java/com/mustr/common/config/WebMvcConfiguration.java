@@ -14,6 +14,7 @@ public class WebMvcConfiguration {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/main");
+                registry.addViewController("/stomp.html");
             }
         };
 

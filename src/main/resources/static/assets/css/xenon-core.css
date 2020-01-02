@@ -2861,7 +2861,7 @@ body.chat-open #chat {
   border-top: 1px solid #ededed;
   padding: 0;
 }
-#chat .chat-conversation .chat-textarea:after {
+/* #chat .chat-conversation .chat-textarea:after {
   content: '\f075';
   font-family: 'fontawesome';
   color: #979898;
@@ -2869,7 +2869,7 @@ body.chat-open #chat {
   top: 10px;
   font-size: 15px;
   position: absolute;
-}
+} */
 #chat .chat-conversation .chat-textarea textarea {
   background: #fafafa;
   border: 0;

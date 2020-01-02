@@ -39,3 +39,4 @@ function getContent(parent, thisName) {
 function isSet(title) {
 	return title != null && title != "" && title != "undefined";
 }
+

@@ -13,8 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mustr.common.annotation.Log;
+import com.mustr.common.entity.Mu;
+import com.mustr.common.entity.SecurityUser;
+import com.mustr.common.entity.UserBean;
+import com.mustr.common.service.UserService;
 import com.mustr.common.utils.Pagination;
 import com.mustr.common.utils.Res;
+import com.mustr.common.utils.SecurityUtils;
 
 @Controller
 @RequestMapping("/common/online")
@@ -23,6 +28,9 @@ public class UserSessionController extends PageController {
 
     @Autowired
     SessionRegistry sessionRegistry;
+    
+    @Autowired
+    UserService userService;
     
     @Log("查看在线用户")
     @GetMapping("/online")
@@ -61,4 +69,37 @@ public class UserSessionController extends PageController {
         }
         return Res.succ();
     }
+    
+    @ResponseBody
+    @GetMapping("/chatUsers")
+	public List<Mu> getOnlineUsers() {
+		List<Object> allPrincipals = sessionRegistry.getAllPrincipals();
+		List<Mu> sessions = new ArrayList<>();
+		if (isNotBlank(allPrincipals)) {
+			Long userId = SecurityUtils.getUserId();
+			for (Object principal : allPrincipals) {
+				List<SessionInformation> allSessions = sessionRegistry.getAllSessions(principal, false);
+				if (isNotBlank(allSessions)) {
+					allSessions.stream().forEach(o -> {
+						SecurityUser user = (SecurityUser) o.getPrincipal();
+						if (user.getId() != userId) {
+							sessions.add(new Mu(user.getId(), user.getName()));
+						}
+					});
+				}
+			}
+		}
+		return sessions;
+	}
+    
+	@ResponseBody
+	@GetMapping("/currUser")
+	public UserBean getCurrentUser() {
+		Long userId = SecurityUtils.getUserId();
+		if (userId != null) {
+			UserBean user = userService.getUserById(userId);
+			return user;
+		}
+		return null;
+	}
 }

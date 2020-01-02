@@ -12,7 +12,7 @@
 }
 
 .iframe-content iframe {
-    min-height: 470px;
+    min-height: 770px;
     height: 100%;
     width: 100%;
 }
@@ -62,4 +62,23 @@
 }
 .gitAdd{
 	color: blue;
+}
+
+.chat-text{
+	float: left;
+	width: 287px;
+	padding-right: 0px;
+}
+.chat-mess-botton{
+	float:right;
+	height: 52px;
+	width: 50px;
+}
+
+.mys{
+	background-color: #e8c9f5;
+}
+
+.ots{
+	background-color: #acef90;
 }

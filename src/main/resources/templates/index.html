@@ -148,11 +148,11 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 						</ul>
 					</li>
 					
-					<!-- <li>
-						<a href="#" data-toggle="chat">
+					<li>
+						<a href="javascript:void(0)" data-toggle="chat">
 							<i class="fa-comments-o"></i>
 						</a>
-					</li> -->
+					</li>
 					
 				</ul>
 				
@@ -193,7 +193,60 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 			</footer>
 		</div>
 		
+		<!-- start: Chat Section -->
+		<div id="chat" class="fixed">
+			
+			<div class="chat-inner">
+			
+				
+				<h2 class="chat-header">
+					<a href="javascript:void(0)" class="chat-close" data-toggle="chat">
+						<i class="fa-plus-circle rotate-45deg"></i>
+					</a>
+					
+					Chat
+					<span class="badge badge-success is-hidden">0</span>
+				</h2>
+				
+				<div class="chat-group userContainer">
+					
+				</div>
+			</div>
+			
+			<!-- conversation template -->
+			<div class="chat-conversation">
+				
+				<div class="conversation-header">
+					<a href="javaScript:void(0)" class="conversation-close">
+						&times;
+					</a>
+					
+					<span class="user-status is-online"></span>
+					<span class="display-name"></span> 
+					<small>在线</small>
+				</div>
+				
+				<ul class="conversation-body"><!-- 消息内容 -->
+					
+				</ul>
+				
+				<div class="chat-textarea">
+					<textarea class="form-control autogrow chat-text" placeholder="好想说点什么。"></textarea>
+					<button type="button" class="btn btn-secondary btn-xs btn-icon chat-mess-botton disabled">
+						<span>发送</span>
+					</button>
+				</div>
+				
+			</div>
+			
+		</div>
+		<!-- end: Chat Section -->
+		
 	</div>
 </body>
+<script type="text/javascript" th:src="@{/plugins/socket/sockjs.js}"></script>
+<script type="text/javascript" th:src="@{/plugins/socket/stomp.js}"></script>
+<script type="text/javascript" th:src="@{/js/dateUtils.js}"></script>
 <script type="text/javascript" th:src="@{/js/home.js}"></script>
+<script type="text/javascript" th:src="@{/js/chat.js}"></script>
 </html>

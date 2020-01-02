@@ -1,5 +1,7 @@
 package com.mustr.common.utils;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.mustr.common.entity.SecurityUser;
@@ -11,7 +13,14 @@ public class SecurityUtils {
      * @return
      */
     public static SecurityUser getUser() {
-        return (SecurityUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	SecurityContext context = SecurityContextHolder.getContext();
+    	if (context != null) {
+    		Authentication authentication = context.getAuthentication();
+    		if (authentication != null) {
+    			return (SecurityUser) authentication.getPrincipal();
+    		}
+    	}
+        return null;
     }
     
     /**

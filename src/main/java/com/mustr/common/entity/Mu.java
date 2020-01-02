@@ -7,7 +7,17 @@ public class Mu implements Serializable {
     protected Long id;
     protected String name;
 
-    public Long getId() {
+    public Mu() {
+		super();
+	}
+
+	public Mu(Long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
+	public Long getId() {
         return id;
     }
 
