@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<button type="button" onclick="sendUser()">发送user</button>
+<button type="button" onclick="sendQueue()">发送queue</button>
+<button type="button" onclick="sendTopic()">发送topic</button>
+
+<script type="text/javascript" th:src="@{/plugins/socket/sockjs.js}"></script>
+<script type="text/javascript" th:src="@{/plugins/socket/stomp.js}"></script>
+<script type="text/javascript">
+//websocket连接
+var sockjs = new SockJS("/endpoint");
+var stomp = Stomp.over(sockjs);
+//stomp.heartbeat.outgoing=0;
+//stomp.heartbeat.incoming=0;
+stomp.debug = null;
+stomp.connect({},function(iframe){
+	//console.log("连接成功" + iframe);
+	
+	//stomp.subscribe("/hahah/123/mess",userMess);
+	stomp.subscribe("/queue/mess",queue);
+	stomp.subscribe("/topic/mess",topic);
+});
+
+function userMess(message) {
+	console.log("/user/123/mess : " + message.body);
+}
+
+function queue(message) {
+	console.log("/queue/mess : " + message.body);
+}
+
+function topic(message) {
+	console.log("/topic/mess : " + message.body);
+}
+function sendUser() {
+	stomp.send("/user/123/mess",{},"用户!");
+}
+
+function sendQueue() {
+	stomp.send("/queue/mess",{},"队列!");
+}
+
+function sendTopic() {
+	stomp.send("/topic/mess",{},"广播!");
+}
+</script>
+</body>
+</html>
