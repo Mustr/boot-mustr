@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="include :: header"></head>
+<body>
+<div class="inner-content">
+  <div class="row">
+     <div class="col-sm-12">
+       <div class="panel panel-default">
+         <div class="panel-body">
+           <form role="form" id="projectForm" class="validate form-horizontal">
+             <input type="hidden" name="parentId" th:value="${pid}"/>
+             <input type="hidden" name="status" value="0"/>
+             <div class="form-group">
+                  <label class="col-sm-2 control-label" for="field-1">所属项目</label>
+                  <div class="col-sm-10">
+                      <input type="text" disabled="disabled" th:value="${pName}" class="form-control" id="field-1" placeholder="所属项目">
+                  </div>
+             </div>
+             <div class="form-group-separator"></div>
+             
+             <div class="form-group">
+                  <label class="col-sm-2 control-label" for="field-2">项目名称</label>
+                  <div class="col-sm-10">
+                      <input type="text" name="name" data-validate="required" class="form-control" id="field-2" placeholder="项目名称">
+                  </div>
+             </div>
+             <div class="form-group-separator"></div>
+             <div class="form-group">
+                  <label class="col-sm-2 control-label" for="field-3">webhook地址</label>
+                  <div class="col-sm-10">
+					<textarea class="form-control" name="webhook" placeholder="用于发送提示信息的地址" cols="5" id="field-3"></textarea>
+				  </div>
+             </div>
+             <div class="form-group-separator"></div>
+           
+           <div class="center">
+               <button type="submit" class="btn btn-turquoise">提交</button>
+               <button type="button" onclick="layer_close()" class="btn btn-white">关闭</button>
+           </div>
+           </form>
+         </div>
+       </div>
+     </div>
+  </div>
+</div>
+<script type="text/javascript" th:src="@{/js/appjs/document/project/add.js}"></script>
+</body>
+
+</html>

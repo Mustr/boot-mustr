@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mustr.document.dao.ProjectDao">
+  
+  <select id="getProjects" resultType="com.mustr.document.entity.ProjectBean">
+    select `id`,`parent_id`,`name`,`webhook`,`status` from TProject
+    <where>
+        <if test="id != null"> and id = #{id} </if>
+        <if test="parentId != null"> and parent_id = #parentId</if>
+        <if test="status != null"> and status = #{status} </if>
+    </where>
+    <choose>
+        <when test="sort != null and sort.trim() != ''">
+         order by ${sort} ${order}
+        </when>
+        <otherwise>
+         order by id desc
+        </otherwise>
+    </choose>
+  </select>
+  
+  <select id="getById" resultType="com.mustr.document.entity.ProjectBean">
+     select `id`,`parent_id`,`name`,`webhook`,`status` from TProject where id = #{id}
+  </select>
+  
+  <insert id="save" parameterType="com.mustr.document.entity.ProjectBean" useGeneratedKeys="true" keyProperty="id">
+   insert into TProject
+    (`parent_id`,`name`,`webhook`,`status`)
+    values
+    (#{parentId},#{name},#{webhook},#{status})
+  </insert>
+  
+  <update id="update" parameterType="com.mustr.document.entity.ProjectBean">
+    update TProject
+      <set>
+        <if test="name != null">`name` = #{name}, </if>
+        <if test="parentId != null">`parent_id` = #{parentId}, </if>
+        <if test="webhook != null">`webhook` = #{webhook}, </if>
+        <if test="status != null">`status` = #{status}</if>
+      </set>
+        where id = #{id}
+  </update>
+  
+  <delete id="remove">
+    delete from TProject where id = #{id}
+  </delete>
+</mapper>
