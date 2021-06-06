@@ -28,34 +28,35 @@
 					</thead>
 	
 					<tbody>
-					<th:block th:each="dept : ${tree.children}">
-						<tr>
-							<td><span class="deptName" th:deptId="${dept.id}"><i class="fa-angle-right onf"></i> [[${dept.title}]]</span></td>
-							<td th:text="${deptStat.count}">Nushi</td>
-							<td>
-	                                    <a type="button" th:if="${dept.data.status != -1}" class="btn btn-success btn-xs">正常</a>
-	                                    <a type="button" th:if="${dept.data.status == -1}" class="btn btn-red btn-xs">禁用</a>
+						<th:block th:each="dept : ${tree.children}">
+							<tr>
+								<td width="35%"><span class="deptName" th:deptId="${dept.id}"><i class="fa-angle-right onf"></i> [[${dept.title}]]</span></td>
+								<td th:text="${deptStat.count}">Nushi</td>
+								<td>
+	                               <a type="button" th:if="${dept.data.status != -1}" class="btn btn-success btn-xs">正常</a>
+	                               <a type="button" th:if="${dept.data.status == -1}" class="btn btn-red btn-xs">禁用</a>
+	                            </td>
+	                            <td>
+									<button type="button" th:onclick="|editDept(${dept.id})|" class="btn btn-secondary btn-sm" title="编辑"><i class="fa-edit"></i></button>
+		                            <button type="button" th:onclick="|addDept(${dept.id})|" class="btn btn-secondary btn-sm" title="添加下级"><i class="fa-plus"></i></button>
+		                            <button type="button" th:onclick="|removeDept(${dept.id})|" class="btn btn-danger btn-sm" title="删除"><i class="fa-remove"></i></button>
+								</td>
+							</tr>
+						    <th:block th:if="${not #lists.isEmpty(dept.children)}">
+							    <tr th:each="child : ${dept.children}" th:classappend="${'childTr_' + dept.id}" class="dChild">
+	                                 <td width="35%" class="child"> [[${child.title}]]</td>
+	                                 <td th:text="${childStat.count}">Nushi</td>
 	                                 <td>
-							<button type="button" th:onclick="|editDept(${dept.id})|" class="btn btn-secondary btn-sm" title="编辑"><i class="fa-edit"></i></button>
-	                                 <button type="button" th:onclick="|addDept(${dept.id})|" class="btn btn-secondary btn-sm" title="添加下级"><i class="fa-plus"></i></button>
-	                                 <button type="button" th:onclick="|removeDept(${dept.id})|" class="btn btn-danger btn-sm" title="删除"><i class="fa-remove"></i></button>
-							</td>
-						</tr>
-					    <th:block th:if="${not #lists.isEmpty(dept.children)}">
-						    <tr th:each="child : ${dept.children}" th:classappend="${'childTr_' + dept.id}" class="dChild">
-	                                  <td class="child"> [[${child.title}]]</td>
-	                                  <td th:text="${childStat.count}">Nushi</td>
-	                                  <td>
-	                                    <a type="button" th:if="${child.data.status != -1}" class="btn btn-success btn-xs">正常</a>
-	                                    <a type="button" th:if="${child.data.status == -1}" class="btn btn-red btn-xs">禁用</a>
-	                                  <td>
-	                                  <button type="button" th:onclick="|editDept(${child.id})|" class="btn btn-secondary btn-sm" title="编辑"><i class="fa-edit"></i></button>
-	                                  <button type="button" th:onclick="|removeDept(${child.id})|" class="btn btn-danger btn-sm" title="删除"><i class="fa-remove"></i></button>
+	                                   <a type="button" th:if="${child.data.status != -1}" class="btn btn-success btn-xs">正常</a>
+	                                   <a type="button" th:if="${child.data.status == -1}" class="btn btn-red btn-xs">禁用</a>
 	                                  </td>
-	                              </tr>
-					    </th:block>
-					</th:block>
-						
+	                                 <td>
+	                                 <button type="button" th:onclick="|editDept(${child.id})|" class="btn btn-secondary btn-sm" title="编辑"><i class="fa-edit"></i></button>
+	                                 <button type="button" th:onclick="|removeDept(${child.id})|" class="btn btn-danger btn-sm" title="删除"><i class="fa-remove"></i></button>
+	                                 </td>
+	                             </tr>
+						    </th:block>
+						</th:block>
 					</tbody>
 				</table>
 	

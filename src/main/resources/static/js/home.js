@@ -7,7 +7,7 @@ $("#main-menu a").click(function(){
 	$(this).parent().addClass("active");
 	var theHref = $(this).attr("href");
 	if (typeof(theHref) != "undefined" && theHref != "" && theHref != "#") {
-		var theName = $(this).data("act");console.log(theName);
+		var theName = $(this).data("act");
 		if (isSet(theName)) {
 			$("#action-path").html(getContent(null, theName));
 		} else {

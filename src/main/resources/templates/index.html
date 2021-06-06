@@ -55,7 +55,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 								</a>
 							</li>
 							<li sec:authorize="hasAuthority('p/all/manageDept')">
-                                <a th:href="@{oa/dept/deptList}">
+                                <a th:href="@{/oa/dept/deptList}">
                                     <span class="title">部门管理</span>
                                 </a>
                             </li>
@@ -90,9 +90,16 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 						</ul>
 					</li>
 					<li>
-						<a href="javascript:void(0)">
+						<a href="javascript:void(0)" data-act="扩展功能">
 							<i class="linecons-star"></i>
 							<span class="title">扩展功能</span>
+						</a>
+					</li>
+					
+					<li>
+						<a th:href="@{/document/project/projectList}" data-act="文档管理">
+							<i class="linecons-note"></i>
+							<span class="title">文档管理</span>
 						</a>
 					</li>
 				</ul>

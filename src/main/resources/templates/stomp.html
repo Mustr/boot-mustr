@@ -9,6 +9,10 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <button type="button" onclick="sendUser()">发送user</button>
 <button type="button" onclick="sendQueue()">发送queue</button>
 <button type="button" onclick="sendTopic()">发送topic</button>
+<button type="button" onclick="sendSubscribe()">发送subscribe</button>
+<button type="button" onclick="connect()">发送connect</button>
+
+
 
 <script type="text/javascript" th:src="@{/plugins/socket/sockjs.js}"></script>
 <script type="text/javascript" th:src="@{/plugins/socket/stomp.js}"></script>
@@ -23,8 +27,8 @@ stomp.connect({},function(iframe){
 	//console.log("连接成功" + iframe);
 	
 	//stomp.subscribe("/hahah/123/mess",userMess);
-	stomp.subscribe("/queue/mess",queue);
-	stomp.subscribe("/topic/mess",topic);
+	stomp.subscribe("/queue/mess",queue,{id:'123'});
+	//stomp.subscribe("/topic/mess",topic);
 });
 
 function userMess(message) {
@@ -48,6 +52,25 @@ function sendQueue() {
 
 function sendTopic() {
 	stomp.send("/topic/mess",{},"广播!");
+}
+
+function sendSubscribe() {
+	stomp.subscribe("/topic/notice",topic);
+}
+
+function connect() {
+	var sockjs1 = new SockJS("/endpoint");
+	var stomp1 = Stomp.over(sockjs1);
+	//stomp.heartbeat.outgoing=0;
+	//stomp.heartbeat.incoming=0;
+	stomp1.debug = null;
+	stomp1.connect({},function(iframe){
+		//console.log("连接成功" + iframe);
+		
+		//stomp.subscribe("/hahah/123/mess",userMess);
+		//stomp.subscribe("/queue/mess",queue,{id:'123'});
+		//stomp.subscribe("/topic/mess",topic);
+	});
 }
 </script>
 </body>

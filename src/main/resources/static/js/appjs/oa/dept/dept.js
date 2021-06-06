@@ -15,7 +15,7 @@ $(".deptName").click(function() {
 
 	
 function removeDept(id) {
-	layer.confirm('请确认是否删除改部门?', {btn: ['确定','取消']}, function(){
+	layer.confirm('请确认是否删除该部门?', {btn: ['确定','取消']}, function(){
 		$.ajax({
 			url : '/oa/dept/dept/'+id,
 			type : 'POST',

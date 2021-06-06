@@ -42,16 +42,12 @@ public class TreeBuilder {
         }
 
         Tree<T> root = new Tree<T>();
-        if (topNodes.size() == 1) {
-            root = topNodes.get(0);
-        } else {
-            root.setId("-1");
-            root.setParentId("");
-            root.setHasParent(false);
-            root.setHasChildren(true);
-            root.setChildren(topNodes);
-            root.setTitle("root");
-        }
+        root.setId("-1");
+        root.setParentId("");
+        root.setHasParent(false);
+        root.setHasChildren(true);
+        root.setChildren(topNodes);
+        root.setTitle("root");
 
         return root;
     }

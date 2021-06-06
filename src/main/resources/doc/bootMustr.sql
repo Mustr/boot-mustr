@@ -153,3 +153,51 @@ CREATE TABLE TLog(
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='日志表';
+
+
+-- ----------------------------
+-- 项目
+-- ----------------------------
+DROP TABLE IF EXISTS `TProject`;
+CREATE TABLE `TProject` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `parent_id` bigint(20) DEFAULT NULL COMMENT '上级项目id，一级为0',
+  `name` varchar(50) DEFAULT NULL COMMENT '项目名称',
+  `webhook` varchar(128) COMMENT '发送提醒消息的webhook地址',
+  `status` tinyint(4) DEFAULT '0' COMMENT '是否删除  -1：已删除  0：正常',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='项目';
+
+
+-- ----------------------------
+-- 文件
+-- ----------------------------
+DROP TABLE IF EXISTS `TFile`;
+CREATE TABLE `TFile` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(128) NOT NULL COMMENT '文件名称',
+  `size` int NOT NULL COMMENT '文件大小',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `content_type` varchar(64) NOT NULL COMMENT '文件格式',
+  `bucket` varchar(32) NOT NULL  COMMENT '桶',
+  `object_name` NOT NULL COMMENT '对象名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目';
+
+
+-- ----------------------------
+-- 文档
+-- ----------------------------
+DROP TABLE IF EXISTS `TDocument`;
+CREATE TABLE `TDocument` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `project_id` bigint(20) NOT NULL COMMENT '所属项目id',
+  `file_id` bigint(20) NOT NULL COMMENT '文件id',
+  `convert_file_id` bigint(20) DEFAULT NULL COMMENT '转换后的文件id',
+  `name` varchar(128) NOT NULL COMMENT '文件名称',
+  `size` int NOT NULL COMMENT '文件大小',
+  `remark` varchar(256) DEFAULT NULL COMMENT '备注',
+  `create_time` datetime NOT NULL COMMENT '修改时间',
+  `status` tinyint(4) DEFAULT '0' COMMENT '0：待转换,1:正常,2转换失败',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='项目';
