@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="include :: header"></head>
 <body>
-
+<div class="inner-content">
+  <div class="row">
+     <div class="col-sm-12">
+       <div class="panel panel-default">
+         <div class="panel-body">
+           <form role="form" id="projectForm" class="validate form-horizontal">
+             <input type="hidden" name="id" th:value="${project.id}"/>
+             <div class="form-group">
+                  <label class="col-sm-2 control-label" for="field-2">项目名称</label>
+                  <div class="col-sm-10">
+                      <input type="text" th:value="${project.name}" name="name" data-validate="required" class="form-control" id="field-2" placeholder="项目名称">
+                  </div>
+             </div>
+             <div class="form-group-separator"></div>
+             <div class="form-group">
+                  <label class="col-sm-2 control-label" for="field-2">webhook地址</label>
+                  <div class="col-sm-10">
+					<textarea class="form-control" th:value="${project.webhook}" name="webhook" placeholder="用于发送提示信息的地址" cols="5" id="field-2">[[${project.webhook}]]</textarea>
+				  </div>
+             </div>
+             <div class="form-group-separator"></div>
+             
+             <div class="form-group">
+                  <label class="col-sm-2 control-label" for="field-3">状态</label>
+                  <div class="col-sm-10">
+                      <label class="radio-inline"><input name="status" value="0" th:checked="${project.status == 0}" type="radio">启用</label>
+                      <label class="radio-inline"><input name="status" value="-1" th:checked="${project.status == -1}" type="radio">禁用</label>
+                  </div>
+             </div>
+             <div class="form-group-separator"></div>
+           
+           <div class="center">
+               <button type="submit" class="btn btn-success">保存</button>
+               <button type="button" onclick="layer_close()" class="btn btn-white">关闭</button>
+           </div>
+           </form>
+         </div>
+       </div>
+     </div>
+  </div>
+</div>
+<script type="text/javascript" th:src="@{/js/appjs/document/project/update.js}"></script>
 </body>
+
 </html>

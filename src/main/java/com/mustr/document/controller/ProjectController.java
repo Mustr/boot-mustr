@@ -76,14 +76,17 @@ public class ProjectController {
     
     @GetMapping("/updateProject/{id}")
     public String updateDept(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("project", projectService.getProjectById(id));
         return prefix + "/update";
     }
     
     @Log("编辑项目")
-    @PutMapping("/project/{id}")
+    @PutMapping("/project")
     @ResponseBody
-    public Res update(@PathVariable("id") Long id, ProjectBean project) {
-        project.setId(id);
+    public Res update(ProjectBean project) {
+        if (project.getId() == null) {
+            return Res.error("id is blank!");
+        }
         return Res.res(projectService.upateProject(project));
     }
 }

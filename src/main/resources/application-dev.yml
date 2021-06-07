@@ -8,9 +8,9 @@ spring:
     cache: false
   #数据源配置
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/bootMustr?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://192.168.1.54:3306/bootMustr?useUnicode=true&characterEncoding=utf8
     username: root
-    password: root
+    password: dascom
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 1
     minIdle: 3

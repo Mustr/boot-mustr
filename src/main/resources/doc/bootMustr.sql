@@ -180,7 +180,7 @@ CREATE TABLE `TFile` (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `content_type` varchar(64) NOT NULL COMMENT '文件格式',
   `bucket` varchar(32) NOT NULL  COMMENT '桶',
-  `object_name` NOT NULL COMMENT '对象名',
+  `object_name` varchar(32) NOT NULL COMMENT '对象名',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目';
 

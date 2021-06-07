@@ -42,14 +42,14 @@
 						</tr>
 						<th:block th:if="${not #lists.isEmpty(project.children)}">
 							<tr th:each="child : ${project.children}" class="dChild" th:classappend="${'childTr_' + project.id}">
-	                            <td width="35%" class="child pointer" th:onclick="|toFileList(child.id)|"> 公共文件</td>
+	                            <td width="35%" class="child pointer" th:onclick="|toFileList(${child.id})|"> [[${child.title}]]</td>
 	                            <td>
 	                              <a type="button" th:if="${child.data.status != -1}" class="btn btn-success btn-xs">正常</a>
 	                              <a type="button" th:if="${child.data.status == -1}" class="btn btn-red btn-xs">禁用</a>
 	                             </td>
 	                            <td>
-	                              <button type="button" th:onclick="|editProject(child.id)|" class="btn btn-secondary btn-sm" title="编辑"><i class="fa-edit"></i></button>
-		                          <button type="button" th:onclick="|removeProject(child.id)|" class="btn btn-danger btn-sm" title="删除"><i class="fa-remove"></i></button>
+	                              <button type="button" th:onclick="|editProject(${child.id})|" class="btn btn-secondary btn-sm" title="编辑"><i class="fa-edit"></i></button>
+		                          <button type="button" th:onclick="|removeProject(${child.id})|" class="btn btn-danger btn-sm" title="删除"><i class="fa-remove"></i></button>
 	                            </td>
 	                        </tr>
                         </th:block>
