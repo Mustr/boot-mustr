@@ -17,6 +17,7 @@
 - 数据库连接池：Alibaba Druid
 - 日志管理：SLF4J
 - 工具类：Apache Commons、Jackson
+- 通信：spring-websocket
 
 
 
@@ -26,3 +27,4 @@
 - 客户端验证：JQuery Validation
 - 页面框架：xenon
 - 弹窗，数据表格等：layui，bootstrap
+- 通信：sockJS，stomp, webscoket
