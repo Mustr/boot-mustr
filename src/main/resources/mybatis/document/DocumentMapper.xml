@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mustr.document.dao.DocumentDao">
+  
+  <insert id="save" parameterType="com.mustr.document.entity.DocumentBean" keyProperty="id" useGeneratedKeys="true">
+    insert into TDocument
+    (`project_id`,`file_id`,`convert_file_id`,`name`,`size`,`remark`,`creator_id`,`create_time`,`status`)
+    values
+    (#{projectId},#{fileId},#{convertFileId},#{name},#{size},#{remark},#{creatorId},#{createTime},#{status})
+  </insert>
+  
+  <update id="update" parameterType="com.mustr.document.entity.DocumentBean">
+    update TDocument
+      <set>
+        <if test="name != null">`name` = #{name}, </if>
+        <if test="remark != null">`remark` = #{remark}, </if>
+        <if test="status != null">`status` = #{status}</if>
+      </set>
+    where id = #{id}
+  </update>
+  
+  <select id="getById" resultType="com.mustr.document.entity.DocumentBean">
+   select `id`,`project_id`,`file_id`,`convert_file_id`,`name`,`size`,`remark`,`creator_id`,`create_time`,`status` from TDocument where id = #{id}
+  </select>
+  
+  <select id="getByProjectIdAndName" resultType="com.mustr.document.entity.DocumentBean">
+    select `id`,`project_id`,`file_id`,`convert_file_id`,`name`,`size`,`remark`,`creator_id`,`create_time`,`status` from TDocument
+    where project_id = #{projectId} and name = #{name} order by create_time desc
+  </select>
+  
+  <select id="getByProjectIdGroupByName" resultType="com.mustr.document.entity.DocumentBean">
+    select o.id, o.project_id, o.file_id, o.convert_file_id, o.name, o.size, o.remark, o.creator_id, o.create_time, o.status
+    from TDocument o
+    where o.project_id = #{projectId}
+    and create_time = (select max(p.create_time) from TDocument p where p.project_id = o.project_id and p.name = o.name)
+    order by o.create_time desc
+  </select>
+  
+  <select id="countByProjectIdAndName" resultType="java.lang.Integer">
+   select count(*) from TDocument where project_id = #{projectId} and name = #{name}
+  </select>
+  
+  <delete id="remove">
+    delete from TDocument where id = #{id}
+  </delete>
+</mapper>

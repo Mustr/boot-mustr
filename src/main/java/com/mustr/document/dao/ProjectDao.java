@@ -2,6 +2,7 @@ package com.mustr.document.dao;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,7 +13,7 @@ public interface ProjectDao {
     
     public List<ProjectBean> getProjects(Map<String, Object> params);
 
-    public ProjectBean getById(long id);
+    public Optional<ProjectBean> getById(long id);
     
     public Long save(ProjectBean project);
     

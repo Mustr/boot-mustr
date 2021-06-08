@@ -176,11 +176,12 @@ DROP TABLE IF EXISTS `TFile`;
 CREATE TABLE `TFile` (
   `id` bigint(20) NOT NULL,
   `name` varchar(128) NOT NULL COMMENT '文件名称',
-  `size` int NOT NULL COMMENT '文件大小',
+  `size` bigint NOT NULL COMMENT '文件大小',
   `create_time` datetime NOT NULL COMMENT '创建时间',
-  `content_type` varchar(64) NOT NULL COMMENT '文件格式',
+  `content_type` varchar(128) NOT NULL COMMENT '文件格式',
+  `suffix` varchar(32) NOT NULL COMMENT '文件后缀名',
   `bucket` varchar(32) NOT NULL  COMMENT '桶',
-  `object_name` varchar(32) NOT NULL COMMENT '对象名',
+  `object_name` varchar(128) NOT NULL COMMENT '对象名',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目';
 
@@ -195,8 +196,9 @@ CREATE TABLE `TDocument` (
   `file_id` bigint(20) NOT NULL COMMENT '文件id',
   `convert_file_id` bigint(20) DEFAULT NULL COMMENT '转换后的文件id',
   `name` varchar(128) NOT NULL COMMENT '文件名称',
-  `size` int NOT NULL COMMENT '文件大小',
+  `size` bigint NOT NULL COMMENT '文件大小',
   `remark` varchar(256) DEFAULT NULL COMMENT '备注',
+  `creator_id` bigint DEFAULT NULL COMMENT '上传者',
   `create_time` datetime NOT NULL COMMENT '修改时间',
   `status` tinyint(4) DEFAULT '0' COMMENT '0：待转换,1:正常,2转换失败',
   PRIMARY KEY (`id`)

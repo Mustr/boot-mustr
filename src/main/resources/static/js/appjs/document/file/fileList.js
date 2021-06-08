@@ -1,10 +1,17 @@
 jQuery(document).ready(function($)
 {
+
+    var fields = $('#fileForm').serializeArray();
+    var params = {}; //声明一个对象
+    $.each(fields, function(index, field) {
+        params[field.name] = field.value; //通过变量，将属性值，属性一起放到对象中
+    })
+
 	var $example_dropzone_filetable = $("#example-dropzone-filetable"),
 	    i = $example_dropzone_filetable.find('tbody').children('tr').length,
 		example_dropzone = $("#advancedDropzone").dropzone({
 		url: '/document/file/upload',
-		
+		params: params,
 		// Events
 		addedfile: function(file)
 		{

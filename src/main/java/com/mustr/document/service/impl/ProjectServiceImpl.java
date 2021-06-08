@@ -33,7 +33,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectBean getProjectById(Long id) {
-        return projectDao.getById(id);
+        return projectDao.getById(id).orElse(null);
     }
 
     @Override

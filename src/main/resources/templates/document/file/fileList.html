@@ -3,15 +3,19 @@
 <head th:replace="include :: header"></head>
 <body>
   <div class="inner-content">
-  	<h3 class="text-gray"> 打造最强团队 <br />
+  	<h3 class="text-gray"> [[${parent.name}]] <br />
 	</h3>
 	
 	<br />
 	
+	<form action="return false" id="fileForm">
+	  <input type="hidden" name="projectId" th:value="${project.id}"/>
+	</form>
+	
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				公共文件   <small>名字相同及覆盖</small>
+				[[${project.name}]]   <small class="text-info">名字相同及覆盖</small>
 			</h3>
 		</div>
 		
@@ -30,17 +34,41 @@
 						<thead>
 							<tr>
 								<th width="1%" class="text-center"></th>
-								<th width="50%">文件名</th>
-								<th width="15%">上传进度</th>
+								<th width="30%">文件名</th>
+								<th width="10%">上传进度</th>
 								<th>大小</th>
 								<th>状态</th>
+								<th>修改时间</th>
 								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td colspan="6" class="text-center">空空如也</td>
+						  <th:block th:each="file : ${list}" >
+						    <tr>
+								<td>[[${fileStat.count}]]</td>
+								<td>[[${file.name}]]</td>
+								<td>空空如也</td>
+								<td>[[${file.sizeStr}]]</td>
+								<td>
+								  <span th:if="${file.status == 0 }" class="text-warning">待转换</span>
+								  <span th:if="${file.status == 1 }" class="text-success">上传成功</span>
+								  <span th:if="${file.status == 2 }" class="text-danger">转换失败</span>
+								</td>
+								<td th:text="${file.formatCreateTime}"></td>
+								<td>
+								  <button type="button" th:onclick="ediDocument([[${file.id}]])" class="btn btn-secondary btn-sm" title="编辑"><i class="fa-edit"></i></button>
+		                          <button type="button" th:onclick="removeDocument([[${file.id}]])" class="btn btn-danger btn-sm" title="删除"><i class="fa-remove"></i></button>
+		                          <button type="button" th:onclick="download([[${file.id}]])" class="btn btn-info btn-sm" title="下载"><i class="fa-cloud-download"></i></button>
+		                          <button type="button" th:onclick="logs([[${file.id}]])" class="btn btn-success btn-sm" title="查看日志"><i class="fa-remove"></i></button>
+								</td>
 							</tr>
+						  </th:block>
+						
+						 <th:block  th:if="${#lists.isEmpty(list)}">
+							<tr>
+								<td colspan="7" class="text-center">空空如也</td>
+							</tr>
+						</th:block>
 						</tbody>
 					</table>
 					

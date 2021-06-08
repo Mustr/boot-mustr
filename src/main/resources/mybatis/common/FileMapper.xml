@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mustr.common.dao.FileDao">
+   <insert id="save" parameterType="com.mustr.common.entity.FileBean" keyProperty="id">
+     insert into TFile
+     (`id`,`name`,`size`,`create_time`,`content_type`,`bucket`,`object_name`,`suffix`)
+     values
+     (#{id},#{name},#{size},#{createTime},#{contentType},#{bucket},#{objectName},#{suffix})
+   </insert>
+
+   <select id="getById" resultType="com.mustr.common.entity.FileBean">
+     select `name`,`size`,`create_time`,`content_type`,`bucket`,`object_name`,`suffix` from TFile where id = #{id}
+   </select>
+
+   <delete id="remove">
+     delete from TFile where id = #{id}
+   </delete>
+</mapper>

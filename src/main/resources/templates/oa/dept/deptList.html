@@ -37,9 +37,9 @@
 	                               <a type="button" th:if="${dept.data.status == -1}" class="btn btn-red btn-xs">禁用</a>
 	                            </td>
 	                            <td>
-									<button type="button" th:onclick="|editDept(${dept.id})|" class="btn btn-secondary btn-sm" title="编辑"><i class="fa-edit"></i></button>
-		                            <button type="button" th:onclick="|addDept(${dept.id})|" class="btn btn-secondary btn-sm" title="添加下级"><i class="fa-plus"></i></button>
-		                            <button type="button" th:onclick="|removeDept(${dept.id})|" class="btn btn-danger btn-sm" title="删除"><i class="fa-remove"></i></button>
+									<button type="button" th:onclick="editDept([[${dept.id}]])" class="btn btn-secondary btn-sm" title="编辑"><i class="fa-edit"></i></button>
+		                            <button type="button" th:onclick="addDept([[${dept.id}]])" class="btn btn-secondary btn-sm" title="添加下级"><i class="fa-plus"></i></button>
+		                            <button type="button" th:onclick="removeDept([[${dept.id}]])" class="btn btn-danger btn-sm" title="删除"><i class="fa-remove"></i></button>
 								</td>
 							</tr>
 						    <th:block th:if="${not #lists.isEmpty(dept.children)}">
@@ -51,8 +51,8 @@
 	                                   <a type="button" th:if="${child.data.status == -1}" class="btn btn-red btn-xs">禁用</a>
 	                                  </td>
 	                                 <td>
-	                                 <button type="button" th:onclick="|editDept(${child.id})|" class="btn btn-secondary btn-sm" title="编辑"><i class="fa-edit"></i></button>
-	                                 <button type="button" th:onclick="|removeDept(${child.id})|" class="btn btn-danger btn-sm" title="删除"><i class="fa-remove"></i></button>
+	                                 <button type="button" th:onclick="editDept([[${child.id}]])" class="btn btn-secondary btn-sm" title="编辑"><i class="fa-edit"></i></button>
+	                                 <button type="button" th:onclick="removeDept([[${child.id}]])" class="btn btn-danger btn-sm" title="删除"><i class="fa-remove"></i></button>
 	                                 </td>
 	                             </tr>
 						    </th:block>
