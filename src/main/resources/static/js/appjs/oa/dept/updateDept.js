@@ -6,7 +6,7 @@ $.validator.setDefaults({
 
 function save () {
 	$.ajax({
-		type : "POST",
+		type : "PUT",
 		url : "/oa/dept/dept",
 		data : $('#deptForm').serializeArray(),
 		error : function(request) {

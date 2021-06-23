@@ -7,7 +7,7 @@ $.validator.setDefaults({
 function update() {
 	$.ajax({
 		url: '/common/user/user',
-		type: 'POST',
+		type: 'PUT',
 		data: $("#userForm").serializeArray(),
 		error: function(data) {
 			layer.alert("出错了，请检查！");

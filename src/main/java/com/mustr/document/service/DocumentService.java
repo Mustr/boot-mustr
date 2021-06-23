@@ -49,11 +49,18 @@ public interface DocumentService {
     
     
     /**
-     * 删除指定的文档
+     * 删除指定的文档,连日志一并删除
      * @param id
      * @return
      */
     boolean deleteById(long id);
+    
+    /**
+     * 删除记录文件
+     * @param id
+     * @return
+     */
+    boolean deleteLog(long id);
     
     /**
      * 更新
@@ -61,4 +68,11 @@ public interface DocumentService {
      * @return
      */
     boolean update(DocumentBean bean);
+    
+    /**
+     * 发送提示消息
+     * @param id
+     * @return 0正常 1文件不存在  2没有配置webhook
+     */
+    int sendMsg(long id);
 }

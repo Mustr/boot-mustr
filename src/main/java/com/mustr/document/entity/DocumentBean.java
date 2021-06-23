@@ -3,6 +3,7 @@ package com.mustr.document.entity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import com.mustr.common.entity.FileBean;
 import com.mustr.common.entity.Mu;
 
 import cn.hutool.core.io.FileUtil;
@@ -47,6 +48,8 @@ public class DocumentBean extends Mu {
     private LocalDateTime createTime;
     
     private Short status;//'0：待转换,1:正常,2转换失败',
+    
+    private FileBean fileInfo;
     
     public String getSizeStr() {
         if (size != null) {

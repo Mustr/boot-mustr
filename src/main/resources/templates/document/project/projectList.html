@@ -41,7 +41,7 @@
 							</td>
 						</tr>
 						<th:block th:if="${not #lists.isEmpty(project.children)}">
-							<tr th:each="child : ${project.children}" class="dChild" th:classappend="${'childTr_' + project.id}">
+							<tr th:each="child : ${project.children}" th:classappend="${'childTr_' + project.id}">
 	                            <td width="35%" class="child pointer" th:onclick="toFileList([[${child.id}]])"> [[${child.title}]]</td>
 	                            <td>
 	                              <a type="button" th:if="${child.data.status != -1}" class="btn btn-success btn-xs">正常</a>

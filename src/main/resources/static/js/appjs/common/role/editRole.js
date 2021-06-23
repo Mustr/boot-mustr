@@ -7,7 +7,7 @@ $.validator.setDefaults({
 function save () {
 	$.ajax({
 		url: '/common/role/role',
-		type: 'POST',
+		type: 'PUT',
 		data: $("#roleForm").serializeArray(),
 		error:function(data){
 			layer.alert("出错了，请检查！")

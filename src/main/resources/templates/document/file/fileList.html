@@ -15,63 +15,71 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				[[${project.name}]]   <small class="text-info">名字相同及覆盖</small>
+				[[${project.name}]]   <small class="text-info">名字相同及覆盖,  点击标题可以查看哦.</small>
 			</h3>
 		</div>
 		
 		<div class="panel-body">
 			<br />
 			<div class="row">
-				<div class="col-sm-3 text-center">
+				<div class="col-sm-2 text-center">
 					<div id="advancedDropzone" class="droppable-area">
 						拖动上传
 					</div>
-					
 				</div>
-				<div class="col-sm-9">
+				<div class="col-sm-10">
 					
-					<table class="table table-bordered table-striped" id="example-dropzone-filetable">
+					<table class="table table-bordered table-striped hide" id="example-dropzone-filetable">
 						<thead>
 							<tr>
 								<th width="1%" class="text-center"></th>
-								<th width="30%">文件名</th>
+								<th width="40%">文件名</th>
 								<th width="10%">上传进度</th>
 								<th>大小</th>
 								<th>状态</th>
-								<th>修改时间</th>
-								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					
+					
+					<table class="table table-bordered table-striped" id="filetable">
+						<thead>
+							<tr>
+								<th width="1%" class="text-center"></th>
+								<th>文件名</th>
+								<th width="8%">大小</th>
+								<th width="5%">后缀</th>
+								<th width="13%">上传时间</th>
+								<th width="250">操作</th>
 							</tr>
 						</thead>
 						<tbody>
 						  <th:block th:each="file : ${list}" >
 						    <tr>
 								<td>[[${fileStat.count}]]</td>
-								<td>[[${file.name}]]</td>
-								<td>空空如也</td>
+								<td><a th:href="@{/document/file/view/} + ${file.id}" target="_blank" class="filea">[[${file.name}]]</a></td>
 								<td>[[${file.sizeStr}]]</td>
+								<td>[[${file.fileInfo.suffix}]]</td>
+								<td>[[${file.formatCreateTime}]]</td>
 								<td>
-								  <span th:if="${file.status == 0 }" class="text-warning">待转换</span>
-								  <span th:if="${file.status == 1 }" class="text-success">上传成功</span>
-								  <span th:if="${file.status == 2 }" class="text-danger">转换失败</span>
-								</td>
-								<td th:text="${file.formatCreateTime}"></td>
-								<td>
+		                          <button type="button" th:onclick="download([[${file.id}]])" class="btn btn-info btn-sm" title="下载"><i class="fa-cloud-download"></i></button>
+		                          <button type="button" th:onclick="logs([[${project.id}]],[[${file.name}]])" class="btn btn-pink btn-sm" title="查看日志"><i class="fa-bars"></i></button>
 								  <button type="button" th:onclick="ediDocument([[${file.id}]])" class="btn btn-secondary btn-sm" title="编辑"><i class="fa-edit"></i></button>
 		                          <button type="button" th:onclick="removeDocument([[${file.id}]])" class="btn btn-danger btn-sm" title="删除"><i class="fa-remove"></i></button>
-		                          <button type="button" th:onclick="download([[${file.id}]])" class="btn btn-info btn-sm" title="下载"><i class="fa-cloud-download"></i></button>
-		                          <button type="button" th:onclick="logs([[${file.id}]])" class="btn btn-success btn-sm" title="查看日志"><i class="fa-remove"></i></button>
+		                          <button type="button" th:onclick="sendMsg([[${file.id}]])" class="btn btn-purple btn-sm" title="发送通知"><i class="fa-bullhorn"></i></button>
 								</td>
 							</tr>
 						  </th:block>
 						
 						 <th:block  th:if="${#lists.isEmpty(list)}">
 							<tr>
-								<td colspan="7" class="text-center">空空如也</td>
+								<td colspan="6" class="text-center">空空如也</td>
 							</tr>
 						</th:block>
 						</tbody>
 					</table>
-					
 				</div>
 			</div>
 			

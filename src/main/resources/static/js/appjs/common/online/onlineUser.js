@@ -51,8 +51,8 @@ function delUser(id,obj) {
 	layer.confirm('真的踢出该用户吗么?', function(index) {
 		$.ajax({
 			url :"/common/online/tick/",
-			method : "POST",
-			data : {'_method':'DELETE','sessionId':id},
+			method : "DELETE",
+			data : {'sessionId':id},
 			error : function(request) {
 				layer.alert("出错了，请检查");
 			},

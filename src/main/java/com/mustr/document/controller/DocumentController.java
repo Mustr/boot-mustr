@@ -1,6 +1,5 @@
 package com.mustr.document.controller;
 
-import java.io.InputStream;
 import java.nio.charset.Charset;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +28,6 @@ import com.mustr.document.entity.ProjectBean;
 import com.mustr.document.service.DocumentService;
 import com.mustr.document.service.ProjectService;
 
-import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.net.URLEncoder;
 
 /**
@@ -55,7 +53,7 @@ public class DocumentController {
     
     @Log("文件列表")
     @GetMapping("/fileList/{projectId}")
-    public ModelAndView deptList(@PathVariable("projectId") Long projectId) {
+    public ModelAndView fileList(@PathVariable("projectId") Long projectId) {
         ModelAndView model = new ModelAndView(prefix + "/fileList");
         model.addObject("list", documentService.getByProjectId(projectId));
         
@@ -70,7 +68,7 @@ public class DocumentController {
     
     @Log("文件历史记录")
     @GetMapping("/fileLogs/{projectId}")
-    public ModelAndView deptList(@PathVariable("projectId") Long projectId, String name) {
+    public ModelAndView fileLogList(@PathVariable("projectId") Long projectId, String name) {
         ModelAndView model = new ModelAndView(prefix + "/fileLogs");
         if (StringUtils.isBlank(name)) {
             return model;
@@ -86,6 +84,13 @@ public class DocumentController {
         return Res.res(documentService.deleteById(id));
     }
     
+    @Log("删除文档日志")
+    @DeleteMapping("/file/log/{id}")
+    @ResponseBody
+    public Res removeLog(@PathVariable("id") Long id) {
+        return Res.res(documentService.deleteLog(id));
+    }
+    
     @GetMapping("/toUpdate/{id}")
     public ModelAndView toUpdate(@PathVariable("id") Long id) {
         ModelAndView model = new ModelAndView(prefix + "/toUpdate");
@@ -96,9 +101,24 @@ public class DocumentController {
     @Log("更新文档信息")
     @PutMapping("/file")
     @ResponseBody
-    public Res update(@RequestBody DocumentBean bean) {
+    public Res update(DocumentBean bean) {
         return Res.res(documentService.update(bean));
     }
+    
+    @Log("发送提示信息")
+    @PostMapping("/sendMsg/{id}")
+    @ResponseBody
+    public Res sendMsg(@PathVariable("id") Long id) {
+        int sendMsg = documentService.sendMsg(id);
+        //0正常 1文件不存在  2没有配置webhook
+        if (sendMsg == 1) {
+            return Res.error("文件不存在");
+        } else if (sendMsg == 2) {
+            return Res.error("没有配置webhook");
+        }
+        return Res.succ();
+    }
+    
     
     @Log("上传文件")
     @RequestMapping("/upload")
@@ -129,18 +149,14 @@ public class DocumentController {
             return;
         }
         
-        InputStream input = null;
         try {
-            input = fileServcie.getFileStream(file.getBucket(), file.getObjectName());
-            if (input != null) {
-                response.setContentType(file.getContentType());
+            String viewUrl = fileServcie.getViewUrl(file.getBucket(), file.getObjectName());
+            if (viewUrl != null) {
                 response.setHeader("Cache-Control", "max-age="+ (7 * 24 *60 * 60));
-                IoUtil.copy(input, response.getOutputStream());
+                response.sendRedirect(viewUrl);
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            IoUtil.close(input);
         }
     }
     
@@ -151,25 +167,20 @@ public class DocumentController {
         if (result == null || result.getFileId() == null) {
             return;
         }
-        
+
         FileBean file = fileServcie.getById(result.getFileId());
         if (file == null) {
             return;
         }
-        
-        InputStream input = null;
+
         try {
-            input = fileServcie.getFileStream(file.getBucket(), file.getObjectName());
-            if (input != null) {
-                String fileName = URLEncoder.createDefault().encode(file.getName(),Charset.forName("utf-8"));
-                response.addHeader("Content-Disposition", String.format("attachment;filename=%s",fileName));
-                response.setContentType(file.getContentType());
-                IoUtil.copy(input, response.getOutputStream());
+            String fileName = URLEncoder.createDefault().encode(file.getName(), Charset.forName("utf-8"));
+            String downloadUrl = fileServcie.getDownloadUrl(file.getBucket(), file.getObjectName(), fileName);
+            if (downloadUrl != null) {
+                response.sendRedirect(downloadUrl);
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            IoUtil.close(input);
         }
     }
 }

@@ -18,8 +18,7 @@ function removeDept(id) {
 	layer.confirm('请确认是否删除该部门?', {btn: ['确定','取消']}, function(){
 		$.ajax({
 			url : '/oa/dept/dept/'+id,
-			type : 'POST',
-			data : {'_method' : 'DELETE'},
+			type : 'DELETE',
 			error : function(request) {
 				layer.alert("出错了，请检查！");
 			},

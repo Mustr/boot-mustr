@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
@@ -25,9 +27,11 @@ import com.mustr.utils.ResourceTypeUtil;
 import cn.hutool.core.io.FileUtil;
 import io.minio.DownloadObjectArgs;
 import io.minio.GetObjectArgs;
+import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
+import io.minio.http.Method;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -252,6 +256,46 @@ public class FileServiceImpl implements FileService{
         
         try {
            return minioClient.getObject(args);
+        } catch (Exception igonre) {
+        }
+        return null;
+    }
+
+    @Override
+    public String getViewUrl(String bucket, String objectName) {
+        if (StringUtils.isAnyBlank(bucket, objectName)) {
+            return null;
+        }
+        GetPresignedObjectUrlArgs args = GetPresignedObjectUrlArgs.builder()
+            .bucket(bucket)
+            .object(objectName)
+            .method(Method.GET)
+            .build();
+
+        try {
+            return minioClient.getPresignedObjectUrl(args);
+        } catch (Exception igonre) {
+        }
+
+        return null;
+    }
+
+    @Override
+    public String getDownloadUrl(String bucket, String objectName, String filename) {
+        if (StringUtils.isAnyBlank(bucket, objectName)) {
+            return null;
+        }
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("response-content-disposition", "attachment; filename=" + filename);
+        GetPresignedObjectUrlArgs args = GetPresignedObjectUrlArgs.builder()
+            .bucket(bucket)
+            .object(objectName)
+            .method(Method.GET)
+            .extraQueryParams(reqParams)
+            .build();
+
+        try {
+            return minioClient.getPresignedObjectUrl(args);
         } catch (Exception igonre) {
         }
         return null;

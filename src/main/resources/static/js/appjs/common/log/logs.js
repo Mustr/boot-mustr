@@ -83,8 +83,8 @@ function delLog(ids,table) {
 	layer.confirm('真的删除这些日志吗么?', function(index) {
 		$.ajax({
 			url :"/common/log/batchLog",
-			method : "POST",
-			data : {'_method':'DELETE','ids':ids},
+			method : "DELETE",
+			data : {'ids':ids},
 			error : function(request) {
 				layer.alert("出错了，请检查");
 			},

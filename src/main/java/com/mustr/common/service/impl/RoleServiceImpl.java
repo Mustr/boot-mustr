@@ -61,7 +61,9 @@ public class RoleServiceImpl extends ServiceBase implements RoleService {
             int updateRole = roleDao.updateRole(role);
             List<String> permissionses = role.getPermissionses();
             rolePermissionsDao.deleteRoleAllPermissions(role.getId());
-            rolePermissionsDao.batchSaveRolePermissions(role.getId(), permissionses);
+            if (permissionses != null) {
+                rolePermissionsDao.batchSaveRolePermissions(role.getId(), permissionses);
+            }
             return updateRole > 0;
         }
         return false;

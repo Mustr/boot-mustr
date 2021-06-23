@@ -91,8 +91,7 @@ function delUser(id,obj) {
 	layer.confirm('真的删除该用户吗么?', function(index) {
 		$.ajax({
 			url :"/common/user/user/" + id,
-			method : "POST",
-			data : {'_method':'DELETE'},
+			method : "DELETE",
 			error : function(request) {
 				layer.alert("出错了，请检查");
 			},

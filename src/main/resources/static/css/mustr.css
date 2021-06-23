@@ -85,3 +85,12 @@
 .pointer {
 	cursor:pointer;
 }
+.hide {
+	display: none;
+}
+.filea {
+	color: #979898;
+}
+.filea.hover {
+	color: #000040;
+}

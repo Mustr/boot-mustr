@@ -27,7 +27,7 @@ import com.mustr.common.utils.SecurityUtils;
 @Controller
 @RequestMapping("/common/role")
 public class RoleController extends ControllerBase{
-    private static String prefix = "/common/role";
+    private static String prefix = "common/role";
     
     @Autowired
     RoleService roleService;

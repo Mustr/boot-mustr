@@ -66,4 +66,21 @@ public interface FileService {
      * @return
      */
     InputStream getFileStream(String bucket, String objectName);
+    
+    /**
+     * 获取文件的查看地址
+     * @param bucket
+     * @param objectName
+     * @return
+     */
+    String getViewUrl(String bucket, String objectName);
+    
+    /**
+     * 文件下載地址
+     * @param bucket
+     * @param objectName
+     * @param filename 
+     * @return
+     */
+    String getDownloadUrl(String bucket, String objectName, String filename);
 }

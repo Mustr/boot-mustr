@@ -24,7 +24,7 @@ import com.mustr.common.utils.SecurityUtils;
 @Controller
 @RequestMapping("/common/log")
 public class LogController extends PageController {
-    private static String prefix = "/common/log";
+    private static String prefix = "common/log";
     
     @Autowired
     LogService logService;

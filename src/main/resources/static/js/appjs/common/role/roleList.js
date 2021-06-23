@@ -43,8 +43,7 @@ function delRole(rId, obj) {
 	layer.confirm("真的要删除该角色吗?",function(index){
 		$.ajax({
 			url :"/common/role/role/" + rId,
-			method : "POST",
-			data : {'_method':'DELETE'},
+			method : "DELETE",
 			error : function(request) {
 				layer.alert("出错了，请检查");
 			},
