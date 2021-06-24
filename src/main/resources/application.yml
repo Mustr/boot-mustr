@@ -26,7 +26,8 @@ mybatis:
 pagehelper:
   helper-dialect: mysql
  
-mustr:  minio:    endpoint: http://192.168.1.63:9000  #minio路径，http://不能少
+mustr:
+  server-url: http://192.168.1.75:666  minio:    endpoint: http://192.168.1.63:9000  #minio路径，http://不能少
     access-key: dascomsoft
     secret-key: dascomsoft
     bucket: boot-mustr

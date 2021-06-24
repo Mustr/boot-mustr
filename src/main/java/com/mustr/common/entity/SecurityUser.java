@@ -9,6 +9,7 @@ public class SecurityUser extends User {
     private static final long serialVersionUID = 258745813215684366L;
     private final long id;
     private final String name;
+    private String ipAddr;
 
     public SecurityUser(long id, String name, String username, String password,
             Collection<? extends GrantedAuthority> authorities) {
@@ -29,6 +30,14 @@ public class SecurityUser extends User {
 
     public String getName() {
         return name;
+    }
+
+    public String getIpAddr() {
+        return ipAddr;
+    }
+
+    public void setIpAddr(String ipAddr) {
+        this.ipAddr = ipAddr;
     }
 
     @Override

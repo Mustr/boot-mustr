@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,6 +21,8 @@ import com.mustr.common.dao.UserDao;
 import com.mustr.common.entity.RoleBean;
 import com.mustr.common.entity.SecurityUser;
 import com.mustr.common.entity.UserBean;
+import com.mustr.common.utils.HttpContextUtils;
+import com.mustr.common.utils.IPUtil;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -57,9 +61,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
                 // 封装指定的user对象返回
                 boolean enabled = user.getStatus() == null || user.getStatus() != -1;
-                UserDetails userDetails = new SecurityUser(user.getId(), user.getName(), username, user.getPassword(),
+                SecurityUser userDetails = new SecurityUser(user.getId(), user.getName(), username, user.getPassword(),
                         enabled, true, true, true, authorities);
-
+                
+                HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
+                if (request != null) {
+                    userDetails.setIpAddr(IPUtil.getIPAddr(request));
+                }
+                
                 return userDetails;
             }
 

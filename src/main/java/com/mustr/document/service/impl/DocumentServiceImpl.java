@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mustr.common.config.MustrProperties;
 import com.mustr.common.entity.FileBean;
 import com.mustr.common.service.FileService;
 import com.mustr.document.dao.DocumentDao;
@@ -42,6 +43,8 @@ public class DocumentServiceImpl implements DocumentService {
     private DocumentDao documentDao;
     @Autowired
     private ProjectDao projectDao;
+    @Autowired
+    private MustrProperties mustrProperties;
     
     @Override
     @Transactional
@@ -155,10 +158,19 @@ public class DocumentServiceImpl implements DocumentService {
         if (!result.isPresent()) {
             return 1;// 文件不存在
         }
-        StringBuilder message = new StringBuilder("文件更新了！\n");
+        StringBuilder message = new StringBuilder();
         DocumentBean doc = result.get();
 
-        message.append(">文件: <font color=\"info\">" + doc.getName() + "</font>\n");
+        String serverUrl = mustrProperties.getServerUrl();
+        if (StringUtils.isNoneBlank(serverUrl)) {
+            message.append("文件更新了！<font color=\"info\">(点击标题查看)</font>\n");
+            //[这是一个链接](http://work.weixin.qq.com/api/doc)
+            String url =  serverUrl + "/document/file/view/" + id;
+            message.append(">文件:  [" + doc.getName() + "](" + url +")\n");
+        } else {
+            message.append("文件更新了！\n");
+            message.append(">文件: <font color=\"info\">" + doc.getName() + "</font>\n");
+        }
 
         Long projectId = doc.getProjectId();
         String webhook = null;

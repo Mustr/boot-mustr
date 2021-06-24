@@ -25,8 +25,9 @@ function load() {
 		      }
 		    ,cols: [[ //表头
 		      {type:'numbers',title: '序号',width:'8%'}
-		      ,{title: '用户名', width:'25%',sort: true,templet:function(data){return data.principal.username}}
-		      ,{title: '姓名', width:'25%', sort: true,templet:function(data){return data.principal.name}}
+		      ,{title: '用户名', width:'20%',sort: true, templet:function(data){return data.principal.username}}
+		      ,{title: '姓名', width:'20%', sort: true, templet:function(data){return data.principal.name}}
+		      ,{title: 'IP地址', width:'20%', sort: true, templet:function(data){return data.principal.ipAddr}}
 		      ,{field: 'lastRequest', title: '最后请求时间', width:'32%'} 
 		      ,{title: '操作',align:'center', toolbar: '#optBtns', width:'10%'}
 		    ]]
