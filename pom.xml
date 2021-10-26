@@ -164,9 +164,16 @@
 		    <artifactId>jodconverter-spring-boot-starter</artifactId>
 		    <version>4.3.0</version>
 		</dependency>
-	    <dependency>
+		<!-- 远程转换 -->
+	    <!-- <dependency>
 		    <groupId>org.jodconverter</groupId>
 		    <artifactId>jodconverter-remote</artifactId>
+		    <version>4.3.0</version>
+		</dependency> -->
+		<!-- 本地转换 -->
+		<dependency>
+		    <groupId>org.jodconverter</groupId>
+		    <artifactId>jodconverter-local</artifactId>
 		    <version>4.3.0</version>
 		</dependency>
 	</dependencies>

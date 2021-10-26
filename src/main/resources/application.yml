@@ -39,12 +39,12 @@ management:
         include: ['httptrace', 'metrics']
         
 jodconverter:
-    #local:
-    #    enabled: true
-    #    officeHome: /opt/libreoffice6.4
-    #    taskExecutionTimeout: 600000  #任务执行的时长，超过这个时间之间终止转换
-    remote:
+    local:
         enabled: true
-        url: http://192.168.1.65:9980  #liberoffice online的地址
+        officeHome: /opt/libreoffice6.4
         taskExecutionTimeout: 600000  #任务执行的时长，超过这个时间之间终止转换
+    #remote:
+    #    enabled: true
+    #    url: http://192.168.1.65:9980  #liberoffice online的地址
+    #    taskExecutionTimeout: 600000  #任务执行的时长，超过这个时间之间终止转换
   
