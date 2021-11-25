@@ -18,6 +18,7 @@
 - 日志管理：SLF4J
 - 工具类：Apache Commons、Jackson
 - 通信：spring-websocket
+- 文件存储：Minio
 
 
 
